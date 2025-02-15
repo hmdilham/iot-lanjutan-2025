@@ -1,9 +1,3 @@
-// https://github.com/hmdilham/iot-lanjutan-2025
-// note : untuk esp32 lama, menggunakan GPIO 2 sebagai LED_BUILTIN
-// note : untuk esp32 baru, menggunakan GPIO 13 sebagai LED_BUILTIN
-// ada esp32 yang jika tidak menggunakan code serial.begin(115200) maka tidak akan berjalan led builtinnya
-
-
 #include <Arduino.h>  // Wajib untuk PlatformIO
 
 #define LED_BUILTIN 2 // GPIO 2 adalah LED bawaan ESP32
