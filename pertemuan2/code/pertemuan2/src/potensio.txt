@@ -1,0 +1,14 @@
+#include <Arduino.h>
+
+#define POTENTIOMETER 34
+
+void setup() {
+  Serial.begin(115200);
+  //pinMode(POTENTIOMETER, INPUT);
+}
+
+void loop() {
+  int sensorValue = analogRead(POTENTIOMETER);  // Baca nilai potensiometer
+  Serial.println(sensorValue);                 // Tampilkan nilai di Serial Monitor
+  delay(500);                                  // Tunggu 100 ms
+}
