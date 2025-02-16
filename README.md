@@ -91,7 +91,7 @@
 - Tips optimasi kode untuk ESP32/ESP8266.
 - Troubleshooting umum (contoh: masalah Wi-Fi, MQTT, atau memori).
 - Manajemen daya (deep sleep mode).
-
+  
 #### **Pertemuan 20: Presentasi Proyek Akhir**
 - Peserta mempresentasikan proyek akhir yang menggabungkan semua konsep yang telah dipelajari.
 - Diskusi dan evaluasi proyek.
@@ -114,7 +114,3 @@
   - Servo (untuk motor servo).
   - Blynk (jika menggunakan platform Blynk).
   - ArduinoJson (untuk parsing JSON).
-
----
-
-Dengan learning path ini, peserta akan memahami dasar-dasar ESP32/ESP8266, protokol komunikasi, dan mampu membuat proyek IoT sederhana hingga menengah.
