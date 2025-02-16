@@ -1,7 +1,3 @@
-Berikut adalah kerangka atau learning path untuk modul ESP32/ESP8266 yang terdiri dari 20 pertemuan. Modul ini mencakup dasar-dasar, konsep protokol komunikasi, dan proyek sederhana hingga menengah menggunakan ESP32/ESP8266. Platform IO akan digunakan sebagai platform pengembangan untuk penulisan kode program yang kompatibel dengan kedua hardware tersebut.
-
----
-
 ### **Learning Path: Modul ESP32/ESP8266 (20 Pertemuan)**
 
 #### **Pertemuan 1: Pengenalan ESP32 dan ESP8266**
