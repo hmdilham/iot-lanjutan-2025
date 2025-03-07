@@ -143,6 +143,157 @@ void loop() {
   ```
 
 ---
+**UART with Push Button**
+---
+
+### **Kode Program Transmitter (Mengirim Data)**
+
+```cpp
+#define TX_PIN 17  // GPIO17 (ESP32)
+#define RX_PIN 16  // GPIO16 (ESP32)
+#define BUTTON_PIN 4  // GPIO4 (ESP32) untuk push button
+
+void setup() {
+  Serial.begin(115200); // UART ke komputer
+  Serial1.begin(115200, SERIAL_8N1, RX_PIN, TX_PIN); // UART ke perangkat lain
+  pinMode(BUTTON_PIN, INPUT_PULLUP); // Set pin tombol sebagai input dengan pull-up
+}
+
+void loop() {
+  // Cek apakah tombol ditekan
+  if (digitalRead(BUTTON_PIN) == LOW) { // LOW karena menggunakan pull-up
+    Serial1.println("tombol ditekan"); // Kirim pesan ke Receiver
+    Serial.println("Tombol ditekan, pesan terkirim!"); // Tampilkan di Serial Monitor
+    delay(500); // Debouncing
+  }
+
+  delay(100); // Tunggu sebentar sebelum membaca tombol lagi
+}
+```
+
+---
+
+### **Kode Program Receiver (Menerima Data)**
+
+```cpp
+#define TX_PIN 17  // GPIO17 (ESP32)
+#define RX_PIN 16  // GPIO16 (ESP32)
+#define LED_PIN 2  // GPIO2 (LED built-in ESP32)
+
+void setup() {
+  Serial.begin(115200); // UART ke komputer
+  Serial1.begin(115200, SERIAL_8N1, RX_PIN, TX_PIN); // UART ke perangkat lain
+  pinMode(LED_PIN, OUTPUT); // Set pin LED sebagai output
+}
+
+void loop() {
+  if (Serial1.available()) {
+    String data = Serial1.readStringUntil('\n'); // Baca data
+    Serial.print("Received: ");
+    Serial.println(data); // Tampilkan di Serial Monitor
+
+    // Jika pesan "tombol ditekan" diterima, nyalakan LED
+    if (data == "tombol ditekan") {
+      digitalWrite(LED_PIN, HIGH); // Nyalakan LED
+      delay(1000); // Biarkan LED menyala selama 1 detik
+      digitalWrite(LED_PIN, LOW); // Matikan LED
+    }
+  }
+}
+```
+
+---
+
+### **Penjelasan Kode Program**
+
+#### **Transmitter:**
+1. **Push Button:**
+   - Pin GPIO4 digunakan sebagai input untuk push button.
+   - Menggunakan `INPUT_PULLUP`, sehingga tombol akan membaca `LOW` saat ditekan.
+   - Jika tombol ditekan, pesan "tombol ditekan" dikirim melalui UART (`Serial1`).
+
+2. **Debouncing:**
+   - Delay 500 ms setelah tombol ditekan untuk menghindari bouncing (baca ganda).
+
+3. **UART:**
+   - Menggunakan `Serial1` untuk komunikasi UART dengan Receiver.
+
+#### **Receiver:**
+1. **LED Built-in:**
+   - Pin GPIO2 (LED built-in ESP32) digunakan sebagai output.
+   - Jika pesan "tombol ditekan" diterima, LED akan menyala selama 1 detik.
+
+2. **UART:**
+   - Menggunakan `Serial1` untuk menerima data dari Transmitter.
+
+---
+
+### **Rangkaian Elektronika**
+
+#### **Transmitter:**
+1. **Push Button:**
+   - Hubungkan salah satu kaki push button ke GPIO4.
+   - Hubungkan kaki lainnya ke GND.
+   - Tidak perlu resistor eksternal karena menggunakan `INPUT_PULLUP`.
+
+2. **UART:**
+   - Hubungkan TX Transmitter (GPIO17) ke RX Receiver (GPIO16).
+   - Hubungkan RX Transmitter (GPIO16) ke TX Receiver (GPIO17).
+   - Hubungkan GND Transmitter ke GND Receiver.
+
+#### **Receiver:**
+1. **LED Built-in:**
+   - LED built-in ESP32 sudah terhubung ke GPIO2, tidak perlu rangkaian tambahan.
+
+2. **UART:**
+   - Hubungkan TX Receiver (GPIO17) ke RX Transmitter (GPIO16).
+   - Hubungkan RX Receiver (GPIO16) ke TX Transmitter (GPIO17).
+   - Hubungkan GND Receiver ke GND Transmitter.
+
+---
+
+### **Skema Rangkaian**
+
+```
+Transmitter (ESP32)       Receiver (ESP32)
+- GPIO17 (TX) -----------> GPIO16 (RX)
+- GPIO16 (RX) -----------> GPIO17 (TX)
+- GND -------------------> GND
+
+Push Button (Transmitter):
+- GPIO4 -> Push Button -> GND
+
+LED Built-in (Receiver):
+- GPIO2 (LED built-in) -> Tidak perlu rangkaian tambahan
+```
+
+---
+
+### **Cara Kerja**
+1. **Transmitter:**
+   - Saat tombol ditekan, pesan "tombol ditekan" dikirim ke Receiver melalui UART.
+   - Pesan juga ditampilkan di Serial Monitor.
+
+2. **Receiver:**
+   - Jika pesan "tombol ditekan" diterima, LED built-in akan menyala selama 1 detik.
+   - Pesan yang diterima juga ditampilkan di Serial Monitor.
+
+---
+
+### **Troubleshooting**
+1. **Pesan Tidak Terkirim:**
+   - Periksa koneksi TX-RX (harus cross: TX ke RX, RX ke TX).
+   - Pastikan baud rate sama di kedua perangkat (115200).
+
+2. **LED Tidak Menyala:**
+   - Pastikan pesan "tombol ditekan" diterima dengan benar.
+   - Periksa koneksi GND antara Transmitter dan Receiver.
+
+3. **Tombol Tidak Berfungsi:**
+   - Pastikan tombol terhubung dengan benar (GPIO4 ke tombol ke GND).
+   - Gunakan `INPUT_PULLUP` untuk menghindari resistor eksternal.
+
+---
 
 #### **4. Troubleshooting UART**
 **Masalah Umum dan Solusi:**
