@@ -9,6 +9,9 @@ void setup() {
 }
 
 void loop() {
-  Serial1.println("Hello from Transmitter!"); // Kirim data ke perangkat 2
-  delay(1000);
+  if (Serial1.available()) {
+    String data = Serial1.readStringUntil('\n'); // Baca data
+    Serial.print("Received: ");
+    Serial.println(data); // Tampilkan di Serial Monitor
+  }
 }
