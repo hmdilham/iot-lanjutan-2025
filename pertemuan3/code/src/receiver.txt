@@ -1,0 +1,17 @@
+#include <Arduino.h>
+
+#define TX_PIN 17  // GPIO17 (ESP32)
+#define RX_PIN 16  // GPIO16 (ESP32)
+
+void setup() {
+  Serial.begin(115200); // UART ke komputer
+  Serial1.begin(115200, SERIAL_8N1, RX_PIN, TX_PIN); // UART ke perangkat lain
+}
+
+void loop() {
+  if (Serial1.available()) {
+    String data = Serial1.readStringUntil('\n'); // Baca data
+    Serial.print("Received: ");
+    Serial.println(data); // Tampilkan di Serial Monitor
+  }
+}
