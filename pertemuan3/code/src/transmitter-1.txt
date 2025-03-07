@@ -1,0 +1,22 @@
+#include <Arduino.h>
+
+#define TX_PIN 17  // GPIO17 (ESP32)
+#define RX_PIN 16  // GPIO16 (ESP32)
+#define BUTTON_PIN 4  // GPIO4 (ESP32) untuk push button
+
+void setup() {
+  Serial.begin(115200); // UART ke komputer
+  Serial1.begin(115200, SERIAL_8N1, RX_PIN, TX_PIN); // UART ke perangkat lain
+  pinMode(BUTTON_PIN, INPUT_PULLUP); // Set pin tombol sebagai input dengan pull-up
+}
+
+void loop() {
+  // Cek apakah tombol ditekan
+  if (digitalRead(BUTTON_PIN) == LOW) { // LOW karena menggunakan pull-up
+    Serial1.println("tombol ditekan"); // Kirim pesan ke Receiver
+    Serial.println("Tombol ditekan, pesan terkirim!"); // Tampilkan di Serial Monitor
+    delay(500); // Debouncing
+  }
+
+  delay(100); // Tunggu sebentar sebelum membaca tombol lagi
+}
