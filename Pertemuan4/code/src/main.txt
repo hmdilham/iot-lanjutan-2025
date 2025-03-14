@@ -1,0 +1,66 @@
+#include <Arduino.h>
+#include <Wire.h>
+#include <Adafruit_BMP280.h>
+#include <Adafruit_GFX.h>
+#include <Adafruit_SSD1306.h>
+
+// Konfigurasi OLED
+#define SCREEN_WIDTH 128
+#define SCREEN_HEIGHT 64
+#define SSD1306_I2C_ADDRESS 0x3C
+#define OLED_RESET    -1 // Reset pin (jika tidak digunakan, set ke -1)
+Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RESET);
+
+// Konfigurasi BMP280
+Adafruit_BMP280 bmp;
+
+void setup() {
+  // Inisialisasi Serial Monitor
+  Serial.begin(115200);
+
+  // Inisialisasi OLED
+  if (!display.begin(SSD1306_I2C_ADDRESS, OLED_RESET)) {
+    Serial.println("OLED tidak ditemukan!");
+    while (1);
+  }
+  display.clearDisplay();
+  display.setTextSize(1);
+  display.setTextColor(SSD1306_WHITE);
+  display.setCursor(0, 0);
+  display.println("OLED siap!");
+  display.display();
+  delay(2000);
+
+  // Inisialisasi BMP280
+  if (!bmp.begin(0x23)) { // Alamat BMP280: 0x76 atau 0x77
+    Serial.println("Sensor BMP280 tidak ditemukan!");
+    while (1);
+  }
+}
+
+void loop() {
+  // Baca data dari BMP280
+  float temperature = bmp.readTemperature();
+  float pressure = bmp.readPressure() / 100.0F;
+
+  // Tampilkan data di Serial Monitor
+  Serial.print("Suhu: ");
+  Serial.print(temperature);
+  Serial.print(" °C | Tekanan: ");
+  Serial.print(pressure);
+  Serial.println(" hPa");
+
+  // Tampilkan data di OLED
+  display.clearDisplay();
+  display.setCursor(0, 0);
+  display.println("Data Sensor BMP280:");
+  display.print("Suhu: ");
+  display.print(temperature);
+  display.println(" C");
+  display.print("Tekanan: ");
+  display.print(pressure);
+  display.println(" hPa");
+  display.display();
+
+  delay(2000); // Tunggu 2 detik
+}
