@@ -15,12 +15,11 @@ void loop() {
     String data = Serial1.readStringUntil('\n'); // Baca data
     Serial.print("Received: ");
     Serial.println(data); // Tampilkan di Serial Monitor
-
-    // Jika pesan "tombol ditekan" diterima, nyalakan LED
+  }
+  // Jika pesan "tombol ditekan" diterima, nyalakan LED
     if (data == "tombol ditekan") {
       digitalWrite(LED_PIN, HIGH); // Nyalakan LED
       delay(1000); // Biarkan LED menyala selama 1 detik
       digitalWrite(LED_PIN, LOW); // Matikan LED
     }
-  }
 }
