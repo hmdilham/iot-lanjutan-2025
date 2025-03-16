@@ -1,4 +1,5 @@
 #include <Arduino.h>
+
 #include <Wire.h>
 void setup() {
   Serial.begin(115200);
@@ -14,5 +15,5 @@ void loop() {
       Serial.println(address, HEX);
     }
   }
-  delay(5000);
+  delay(1000);
 }
