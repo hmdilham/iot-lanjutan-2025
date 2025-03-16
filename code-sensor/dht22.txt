@@ -1,0 +1,29 @@
+#include <DHT.h>
+
+#define DHTPIN 4      // Pin DATA DHT (GPIO4/D4)
+#define DHTTYPE DHT22 // Tipe sensor (DHT11 atau DHT22)
+
+DHT dht(DHTPIN, DHTTYPE);
+
+void setup() {
+  Serial.begin(115200);
+  dht.begin();
+}
+
+void loop() {
+  float temperature = dht.readTemperature(); // Baca suhu (°C)
+  float humidity = dht.readHumidity();       // Baca kelembaban (%)
+
+  if (isnan(temperature) || isnan(humidity)) {
+    Serial.println("Gagal membaca data dari sensor DHT!");
+    return;
+  }
+
+  Serial.print("Suhu: ");
+  Serial.print(temperature);
+  Serial.print(" °C | Kelembaban: ");
+  Serial.print(humidity);
+  Serial.println(" %");
+
+  delay(2000); // Tunggu 2 detik
+}
