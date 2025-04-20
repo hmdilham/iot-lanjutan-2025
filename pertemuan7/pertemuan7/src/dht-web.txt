@@ -5,8 +5,8 @@
 #define DHTPIN 4      // Pin DATA DHT (GPIO4)
 #define DHTTYPE DHT22 // Tipe sensor (DHT11 atau DHT22)
 
-const char* ssid = "your_ssid";       // Nama jaringan Wi-Fi
-const char* password = "ssid_pass"; // Password Wi-Fi
+const char* ssid = "ILHAM";       // Nama jaringan Wi-Fi
+const char* password = "ilham.keren"; // Password Wi-Fi
 
 DHT dht(DHTPIN, DHTTYPE);
 WebServer server(80); // Port 80 untuk HTTP
