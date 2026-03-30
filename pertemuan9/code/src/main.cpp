@@ -2,16 +2,16 @@
 #include <PubSubClient.h>
 
 // Konfigurasi Wi-Fi
-const char* ssid = "Xperia XZP";
-const char* password = "ilham12345";
+const char* ssid = "iot";
+const char* password = "iot.lanjutan";
 
 // Konfigurasi MQTT
 const char* mqtt_server = "broker.emqx.io"; // Broker publik
 const int mqtt_port = 1883;
-const char* mqtt_topic = "iot_lanjut/mat10/mqtt"; // Topik yang di-subscribe
+const char* mqtt_topic = "iot_lanjut/mat9/mqtt"; // Topik yang di-subscribe
 
 // Konfigurasi LED
-#define LED_PIN 2 // GPIO2 (ESP32) atau D4 (ESP8266)
+#define LED_PIN 12 // GPIO2 (ESP32) atau D4 (ESP8266)
 
 WiFiClient espClient;
 PubSubClient client(espClient);
