@@ -1,0 +1,8 @@
+{
+  "wifi_ssid": "Blindspot2",
+  "wifi_pass": "passw",
+  "mqtt_server": "broker.emqx.io",
+  "mqtt_port": 1883,
+  "mqtt_topic": "iot/kelas/sensor",
+  "device_id": "ESP32-001"
+}
